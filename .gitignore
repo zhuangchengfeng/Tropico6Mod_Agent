@@ -1,0 +1,6 @@
+.claude/
+_game_extract/
+MyMod/
+.idea/
+*.pyc
+__pycache__/

@@ -1,0 +1,422 @@
+=== 建筑目录 -> 中文名 -> 英文名 ===
+
+机场           | Airport
+公寓           | Apartment
+街机房          | Arcade
+疯人院          | Asylum
+银行           | Bank
+兵营           | Barracks
+简易宿舍         | Bunkhouse
+歌舞厅          | Cabaret
+小屋           | Cabin
+罐头厂          | Cannery
+赌场           | Casino
+大教堂          | Cathedral
+礼拜堂          | Chapel
+教堂           | Church
+马戏团          | Circus
+诊所           | Clinic
+大学           | College
+殖民           | Colonial
+彩绘公寓楼        | Conventillo
+法院           | Courthouse
+乳制品厂         | Creamery
+可下载内容        | DLC
+码头           | Dock
+无人机          | Drones
+地牢           | Dungeon
+大使馆          | Embassy
+简陋住宅         | Flophouse
+喷泉           | Fountain
+杂货店          | Grocery
+中学           | Highschool
+医院           | Hospital
+酒店           | Hotel
+住房           | House
+果汁厂          | Juicery
+停船点          | Landing
+世界奇观         | Landmarks
+图书馆          | Library
+游说           | Lobbyistico
+木板！          | LumberMill
+别墅           | Mansion
+大陵墓          | Mausoleum
+矿场           | Mine
+内阁           | Ministry
+汽车旅馆         | Motel
+新闻界          | Newspaper
+办公室          | Office
+前哨站          | Outpost
+皇宫           | Palace
+海盗窟          | PirateCove
+种植园          | Plantation
+监狱           | Prison
+牧场           | Ranch
+回收装置         | Reclaimer
+研究           | Research
+糟糕洗衣店        | Restaurant
+过山车          | Rollercoaster
+棚屋           | Shack
+造船厂          | Shipyard
+呕吐者          | Spitter
+广场           | Square
+体育场          | Stadium
+巨石阵          | Stonehenge
+坦克           | Tank
+制革厂          | Tannery
+酒馆           | Tavern
+能容纳{residences}个家庭的低质量住宅。租客的富有度至少为贫穷。产生微量污染。降低周遭安全度。 | Tenement
+剧场           | Theater
+隧道连接         | Tunnel
+UI           | UI
+升级           | Upgrades
+库房           | Warehouse
+哨塔           | Watchtower
+工作模式         | Workmodes
+
+=== 其他可能相关的英文名 ===
+(你无权阅读此市民的思想)        | Work_Spy
+{Amount}|plural(one=谍报,other=间谍) | {Amount}|plural(one=spy,other=spies)
+{BuildingName} ({MineType}) | {MineType} {BuildingName}
+{Current}/{Total}条无人机航线。 | {Current}/{Total} drone routes.
+{MineType}矿          | {MineType} Mine
+{agent}已被监禁          | {agent} is already in prison
+{agent}正处在小队中        | {agent} is in a squad
+·················    | Barracks Flavor Text
+一个联合问题               | Have Guard Towers
+一场对汪卡先生巧克力梦工厂参观金门票的追逐，变成了海岛崛起成为世界上最大甜品出口国的奇妙冒险故事。让全世界人民都吃上海岛的加料巧克力吧！ | MapSelectionDescriptionChocolateFactory
+下令拘留此人。降低被捕者家属的认可度，并提高他们的反叛风险。一名被逮捕游客的家人将离开海岛并给出最低评级。被捕的游客获释后也会做出同样的举动。 | Puts this Tropican into a prison.
+不幸的特工                | Agents of Misfortune
+不是所有人都对国家安全有着同样的认同，因此所有人在被证明无害之前都将被认为是嫌疑人，而且证明不需要有证据。 | Security Surveillance flavor
+不知道我们运的那些箱子里面是什么...? | Work_Docker
+专业士兵                 | Professionel Soldiers
+个人权利 - 必选 - 安保监视     | Security Surveillance
+为士兵+5个人经验            | +5 personal experience for soldiers
+为战争而奋斗               | For the war effort
+为突击队驻地送去3000粪肥       | Deliver 3000 Manure to Commando Garrison
+人力资源                 | More Soldiers
+从机场来的间谍              | The Spy Who Came In From The Airport
+你没有海岛币可挖掘            | You don't have any Tropocoins mined.
+使用无人机运输资源            | Deliver resources with Drones
+使用无人的士乘载居民           | Transport citizen using Drone Taxis
+供应军队                 | Supply Military
+保守派国防部部长             | Conservative Minister of Defense
+假安保摄像头               | Fake Security Cameras
+停泊                   | Docking
+允许出口无人机              | Allow export of drones
+全球疾病防治工作             | Global Disease Combat Effort
+全部无人机类型              | All drone types
+公共服务宣传塔              | PSAT Tower
+兵工厂                  | Arsenal
+兵工厂                  | Fort Arsenal modifier
+兵营                   | Barracks
+养殖某种指定牲畜以生产奶，肉类，羊毛，生皮或皮革。造成微量污染。 | Factory Ranch Introduction Text
+军事力量                 | Military Strength
+军事力量覆盖界面             | Military Strength Overlay.
+军事力量：                | Military Strength:
+军事基地                 | Army Base
+军事政变结束了。             | Military coup has ended.
+军事教育                 | Military Education
+军事真理                 | The Military Truth
+军国主义者国防部部长           | Militarist Minister of Defense
+军工厂                  | Weapons Factory
+军用弹性力量               | Military Flex
+军警合一                 | Military Police
+农业塔                  | Agriculture Tower
+冬宫的庞大体积意在反映沙皇俄国的强大实力，以及其对清洁人员的鄙视。 | Winter Palace Flavor Text
+冬日战士                 | Winter Soldiers
+分派黑客对东宫实施夺宝。         | Steal the Winter Palace
+切换皇宫自定义              | Toggle palace customization
+前哨站                  | Outpost
+动态防御                 | Dynamic Defense Workmode Name
+劫掠 & 军队              | Military
+劫掠 & 军队              | Raids & Military
+医疗检查站                | Medical Checkpoint
+卫兵！                  | Guards!
+卷烟人的人生...如同雪茄一般高贵！   | Work_Cigar_Factory
+取消军警合一               | Cancel Military Police
+口罩厂                  | Mask Factory
+可可种植园                | Cocoa plantation
+可载人无人机               | Passenger drones
+可载人无人机               | Passenger Drone
+同时显示所有矿物储备，让你判断安放新采矿建筑的位置。 | AllMineralResourcesTooltip
+名声与不幸                | Fame and Misfortunes
+名声与机遇                | Fame and Fortunes
+吸引游客                 | Attract X Tourists (Prisoners)
+哨塔                   | Watchtower
+囚犯                   | Prisoners
+囚犯均无感染               | No infected Prisoners
+囚犯收入                 | Prisoner income
+因为总是有游戏主角来爬他们的哨塔解锁地图，哨塔守卫对此非常不爽。所以他们有的时候会把哨塔底下的草堆一把火烧了。 | Watchtower Flavor Text
+国防是重中之重，因此所有被纳入陆军，海军或者其他任意军队的市民都将被要求展示出能够驾驭枪支的强大精神。 | Professionel Soldiers Flavor
+国防部门                 | Department of Defense
+图层1颜色                | Color_Palace_Placement_Layer1
+图层2颜色                | Color_Palace_Placement_Layer2
+图层3颜色                | Color_Palace_Placement_Layer3
+在中央岛上建造兵营。           | Construct Barracks on the Center Island.
+在军事叛乱中存活。            | Survive a military coup.
+在军工厂里大家工作都很努力，因为所有人都怕被调到质量检测部门。 | Weapons Factory Flavor Text
+在发生军事冲突时与敌人部队交战，并有机会发现周围路过者的隐藏身份。降低周围自由度。 | Watchtower Introduction Text
+在小岛上建造监狱！            | Build the Prisons on the small Island!
+在建设过程中，法国的顶尖艺术家们批评了铁塔华而不实的设计。还好，他们还没活到艾菲尔铁塔底下礼品店卖粗制滥造塑料铁塔仿品的时候。 | Eiffel Tower Flavor Text
+在海岛的每一座岛屿上，码头都能提供海员来装卸货物，为偷渡者提供免费运输服务，以及窝藏犯罪分子。 | Dock Flavor Text
+在火山岛上拥有矿井            | Have a Mine on Volcano Island.
+地牢                   | Dungeon
+地牢是一个能在阴暗的地下室对犯罪者进行中世纪严刑拷打的地方。 | Dungeon Flavor Text
+地牢的乐趣                | Dungeon Fun
+埃菲尔铁塔                | Eiffel Tower
+堡垒                   | Fort
+堡垒不要了                | Don't Withhold the Fort
+堡垒是应对人民暴动的有效手段。它会告诉人们，就算那些“不文明”的家伙被“迁移”了无数年之后，它也会屹然不倒。 | Fort Flavor Text
+增加防御型建筑的攻击范围。减低周边自由度。 | Defense HQ Introduction
+士兵                   | Soldier
+士兵                   | Soldiers
+外国间谍                 | Foreign Spy
+多么闪耀...              | Work_Jewelery_Factory
+大使馆旁的安保检查点           | Security Checkpoint near Embassy
+大使馆附近的兵营             | Barracks near Embassy
+大口袋连体工作服             | Security Boiler Suits (with big pockets)
+大规模杀伤性武器             | Weapons of Crass Destruction
+夺宝                   | Cyber Operation Center Heist
+夺宝                   | Spy Academy Heist
+夺宝                   | Commando Garrison Heist
+夺宝:埃菲尔铁塔             | Stealing the Eiffel Tower
+夺宝：冬宫                | Winter Palace
+如果我们已经花钱请了一支军队坐镇，又何必再请警察呢？只要付出微不足道的年费，一个士兵就抵过两个警察，除此之外，还能帮助他们抓犯人。当然，公民们会因为失去了自由抱怨几句，但很快，更多正直的人们就会指出让身着军装的孩子们来支援身着警服的孩子们的好处。 | BP_T6EdictMilitaryPolice_VO Text
+守望塔                  | Overwatchtower
+安全检测未发现代理            | Uncovered agents by securitycheckpoint
+安全第一                 | First Defenses
+安全管控                 | Security Controls
+安检关卡                 | Security Checkpoint
+安检关卡是守卫公民自由的头号选择。请出示证件。请看摄像头。令人尴尬的检查就是通往自由的护照。 | Security Checkpoint Flavor Text
+完成-无人机城              | Complete Drone City
+宫廷聚会                 | Palace Party
+家具厂                  | Furniture Factory
+将所有警卫塔升级为哨卫塔。        | Upgrade all buildings into a watchtower.
+小队成员                 | Squad Members
+小队移动                 | Moving with squad
+少量部队                 | Light Military
+岗哨无法拆毁。              | Outposts can not be demolished.
+工业主义者国防部部长           | Industrialist Minister of Defense
+工业化牧场                | Factory Ranch
+工厂零售                 | Factory Outlet
+巧克力工厂                | Chocolate Factory
+巧克岛                  | Build a Chocolate Factory
+希望我卷钱跑路之后这些技能还能派上别的用场... | Work_Commando
+广播塔                  | Broadcast Tower
+广播塔奖励                | Broadcast Tower bonus
+建造矿井({MineType})     | New Mine ({MineType})
+建造种植园({CropType})    | New Plantation ({CropType})
+开汽车厂最重要的一点是在消费者意识到车辆不过是一个在马路上堵着的铁盒子之前把汽车卖出去。 | Vehicle Factory Flavor Text
+开采率受效率影响。            | Automated Mine Efficiency Description
+开采率受效率影响。            | Mine Efficiency Description
+征服                   | Claim with military
+总统阁下，进攻是最好的防守，不过我的进攻性不强。 | Military Intro
+您厌烦了手下皮包骨头的市民们了吗？只要食物加倍，您就能让大家开心！当然，除了那些市场经济靠稀缺性支持的大亨们。但是其他人会对您的恩惠报以感谢。此外，就算会有肥胖症也要等到好多年以后才会出现了！ | BP_T6EdictFoodForThePeople_VO Text
+您的敌人进行的是可鄙的骇客行为，而您进行的是对网络的合理调控。 | Cyber Operation Center Flavor Text
+我们之中的间谍！             | There’s A Spy Among Us!
+我们的皇宫就快失守了！          | We are about to lose the Palace!
+我们能做到的！数量优势是战争的真理。那么，我们是不是该在倒计时结束前大举增兵，然后来个命令与征服？ | Military Content
+我似乎花了太多时间抛光我的靴子...   | Work_Soldier
+我只是一个机器上的一个零件...     | Work_Factory
+我得一直提醒自己“杀人的不是枪”...  | Work_Weapons_Factory
+所有基本效率的防御性建筑的攻击范围提升{rangemod}。 | Static Defense Workmode Description
+打开军事力量覆盖界面           | Open the Military Strength overlay
+打开军事力量覆盖界面。          | Open the Military Strength Overlay.
+打开无人机航线信息界面          | Open drone route information screen
+拆毁你的敢死队军营            | Demolish your Commando Garrison
+拥有5个兵营               | Have 5 Barracks
+拥有无人机指挥              | Have Drone Command
+拥有矿场({MineType})     | Mine ({MineType})
+拥有种植园({CropType})    | Plantation ({CropType})
+攻击小队                 | Attacking Squad
+攻击小队成员               | Attacking Squad Member
+效率为基础值时提升所有防御单位的血量{hpmod}。 | Dynamic Defense Workmode Description
+效率决定了每支小队的单独作战能力。    | Fort Efficiency Description
+效率决定收益率。             | Plantation Efficiency Description
+效率将决定拘留对被捕者产生的影响。    | Prison Efficiency Description
+效率将决定拘留对被捕者产生的影响。    | Dungeon Efficiency Description
+效率将决定消灭目标的成功率。       | Drone Command Efficiency Description
+效率将决定货船来往频率。         | Dock Efficiency Description
+效率将决定防御建筑的作用范围。      | Defense HQ Efficiency Description
+效率将提升生产效率。           | Factory Ranch Efficiency Description
+效率影响劫掠点的产生速度及劫掠时长。   | Commando Garrison Efficiency Description
+效率影响劫掠点的产生速度及劫掠时长。   | Spy Academy Efficiency Description
+效率影响无人机充电时间。         | Efficiency scales drone charging time.
+效率影响部署小队的攻击力。        | Army Base Efficiency Description
+效率影响部署小队的攻击力。        | Barracks Efficiency Description
+效率衡量了发现隐藏身份与发生火灾的几率。 | Watchtower Efficiency Description Text
+效率衡量了发现隐藏身份与发生火灾的几率。 | Palace EFFICIENCY
+效率衡量了发生火灾的几率。        | Guard Tower Efficiency Description
+效率衡量了安全性升降。          | Police Blimp Efficiency Description
+效率衡量了安全性升降。          | Police Station Efficiency Description
+敢死队有着现代作战单位的一切优势 - 伞兵空投，看上去很帅的刀子，还有在头罩底下的酷炫面部迷彩。虽然这些人在战时是珍贵稀缺的资源，但他们不怎么能在战后融入社会。 | Commando Garrison Flavor Text
+敢死队正在出发              | Commandos are departing
+敢死队正在返回              | Commandos are returning
+敢死队正在集结              | Commandos are gathering
+敢死队要塞                | Commando Garrison
+数个世纪以后，人们肯定会崇拜种植园主，因为他们为大家提供了就业和食物，只利人不利己。 | Plantation Flavor Text
+数据挖掘                 | Data mining the mines
+斯坦贝克说这个笑话说的好多了...    | Work_Cannery_Factory
+无人侦察机                | Surveillance drones
+无人侦察机                | Surveillance Drone
+无人机                  | Drone
+无人机                  | Drones
+无人机回收                | Drone Recycling
+无人机城                 | Drone City
+无人机工厂                | Drone Factory
+无人机已完成运输             | Some drone routes are completed
+无人机控制中心              | Drone Command
+无人机狂热者               | Drone Enthusiast
+无人机经济                | Drone Economy
+无人机航线未设置             | No drone route configured
+无人机运输服务              | Drone Delivery Service
+无人机配送服务              | Drone to Home Delivery
+无人的士                 | Taxi Drone-r
+无人的士                 | Taxi drones
+无人的士                 | Drone Taxi
+无效航线                 | Invalid drone routes
+无激活的军事政变             | There is no active military coup
+无论如何，那些座位不舒服。        | Those seats were uncomfortable anyway.
+既然您不打算遵守人道协议，那为什么不顺道投资一个无人机控制中心呢？它能为您提供侵探隐私，秘密刺杀等不道德的功能。 | Drone Command Flavor Text
+早期的比利时人为海岛留下了深远的巧克力传统，不过你在今天的海岛巧克力工厂里已经不会发现一丝一毫对质量的关注。 | Chocolate Factory Flavor Text
+显示当前运营中的无人的士。        | Shows currently operating taxi drones.
+更多警卫                 | Extended Guard
+更高效的挖掘煤、铁、黄金、镍、铝和铀矿资源。造成污染。 | Automated Mine Introduction Text
+最大努力                 | Maximum effort
+有了家具厂，你就能将无用的木板变成便宜的家具，早在你理解那本狗屁不通的拼装说明上的内容之前它就会四分五裂。 | Furniture Factory Flavor Text
+有激活的军事政变             | There is an active military coup
+本地军事力量               | Local Military Strength
+机警的保镖                | Alert Bodyguard
+枪支和抗议者一样……丑陋。        | Protest_End_Military
+棉花种植园                | Cotton plantation
+椰子种植园                | Coffee plantation
+橡胶种植园                | Rubber plantation
+正在防守                 | Guarding
+正常国防优先               | Normal defense priority
+武器                   | Weapons
+每个死亡的的市民都将把他们的剩余财产贡献给海岛。全面提高所有游客评分。为来访居民和游客提供娱乐。对访客没有富有度需求。 | Taj Mahal Palace Introduction Text
+气球工厂                 | Balloon Factory
+水上酒店                 | Purchase Cruise Ship (Botanical Guarden)
+水培种植园                | Hydroponic Plantation
+水培种植园能够在任何地方种植作物而无害虫杂草之虞，可谓是抽了大自然和所谓的“自然栖息地”狠狠一巴掌。 | Hydroponic Plantation Flavor Text
+永久的地牢假期：             | Permanent Dungeon Vacation:
+汽车厂                  | Vehicle Factory
+注重军事                 | Heavy Military
+泰姬陵                  | Taj Mahal Palace
+泰姬陵是检查你是否处在最糟糕时间线的安全方法。如果是的话，它的旁边还会有一座纯黑色的相同陵墓。 | Taj Mahal Palace Flavor Text
+派出无人机处理外国间谍，叛军和罪犯。   | Drone Command Introduction Text
+派出黑客进行劫掠，操作出口价格，控制游客评分，盗取新科技或者让他们夺宝新地标。 | Cyber Operation Center Introduction Text
+派遣突击队员前去夺宝埃菲尔铁塔。     | Heist_EiffelTower_Description
+派遣间谍夺宝一个世界奇观。        | SpyAcademyHeist_Description
+流动医生游击队              | Mobile Doctor Squad
+海岛有着抽雪茄的传统，社会地位不同，抽的雪茄大小也不一样。最大的雪茄有近7米长。 | Cigar Factory Flavor Text
+海岛的司法系统结合了收受贿赂的警察和极具戏剧性和弹性的出警时间。毕竟，一分钱一分货可是天下的真理。 | Police Station Flavor Text
+海岛的电器厂牛逼之处在于其产品一年之内就会被淘汰，让你每年都能把稍微升级之后的产品重新卖给消费者。 | Electronics Factory Flavor Text
+海岛要塞                 | Fortress Tropico
+淡水塔                  | Fresh Water Tower
+温德姆的间谍               | Wyndham's Spy
+温德姆的间谍               | Wyndhams Spy
+港口描述                 | Dock Description
+烟花工厂                 | Fireworks Factory
+烟草种植园                | Tobacco plantation
+牛仔与草原适合拍电影，但是工业化牧场更有效率。它们不仅服务了那些有空旷恐惧症的动物的需求，更为动物们提供了小巧美观，高度浓缩的居住环境。 | Factory Ranch Flavor Text
+物流无人机                | Logistic drones
+物流无人机                | Logistic Drone
+特质（无人机狂热者）           | Trait (Drone Enthusiast)
+玉米种植园                | Corn plantation
+现代化武器                | Modernized Weaponry
+现代的警察会使用步行，汽车，马匹 - 甚至飞车来打击犯罪。不过它虽然会飞，但是速度超级慢。 | Police Blimp Flavor Text
+生产链与出口               | MissionFocusChocolateFactory
+用无人机思考！              | Thinking with drones!
+由保守派推荐               | MinistryDefenseConservatives NAME
+由工业主义派推荐             | MinistryDefenseIndustrialists NAME
+由经纪人推荐               | MinistryDefenseBroker NAME
+由资本主义派推荐             | MinistryDefenseCapitalists NAME
+电器厂                  | Electronics Factory
+白化美洲驼围场              | Albino Llama Paddock
+皇宫                   | Palace
+皇宫                   | PalacePlacementColor
+皇宫守卫                 | Palace Guards
+皇宫正遭受袭击！             | The Palace is under fire!
+皇宫被毁                 | Lost Palace (Attack Multiplayer)
+皇宫被毁                 | Lost Palace (Own Fault)
+监控摄像头                | Security Cameras
+监狱                   | Prison
+监狱是个犯罪者进行“自我改造”的好地方。把一堆因为犯罪技术不精的人关在一起，让他们用多年时间来交流犯罪经验，然后等学成出师了再把他们放出去。 | Prison Flavor Text
+监狱里没有空位了             | There are no free slots in prisons
+相关无人机航线：{count}      | Associated Drone Routes: {count}
+看门狗狗舍                | Guard Dog Kennel
+矿场                   | Mine
+矿工中断                 | Miner Disruption
+矿工疲劳度                | Miners fatigue
+矿物                   | Minerals
+码头                   | Dock
+社会保障                 | Social Security
+私人无人机停机坪             | Personal drone landing pad
+种植园                  | Plantation
+种植园的产品               | Plantation Goods
+第四个地牢入口              | Fourth Dungeon Entrance
+糖！                   | Build 2 Sugar Plantations
+组装无人机！               | Drones Assemble!
+网络行动中心               | Cyber Operation Center
+网络行动中心               | Cyber Operations Center
+罪与罚                  | Police and Prison
+群岛鸟瞰                 | Where in the World is my Palace?
+聪明的领导者，既会上下开拓，又会向四周剥削。地下的矿物都归国有，我们只是需要方法把它拿出来而已。 | Mine Flavor Text
+能够部署部队或攻击周围地方部队的建筑能够提高周围的军事力量。进攻者会寻找军事力量最低的部分进行攻击。 | MilitaryPowerOverlayTooltip
+自动矿井                 | Automated Mine
+自动矿井用机器人替代了那些整天抱怨安全问题的矿工，它们不要工资，也不介意被坍塌的矿井压死。双赢！ | Automated Mine Flavor Text
+舒适的客舱                | Comfortable Cabin
+菠萝种植园                | Pineapple plantation
+蔗糖种植园                | Sugar plantation
+要不是没胆子，我早就撂挑子不干了。    | Work_Rum_Factory
+要不是那些犯罪分子，这本来该是个很轻松的活... | Work_Policeman
+解决间谍污染的唯一方案          | Only One Solution For The Spy Pollution
+触发皇宫抗议               | Trigger protest at palace
+警卫塔                  | Guard Tower
+警卫塔能够在敌人大军来袭时提前让你做好逃跑的准备。它也能有效的摧毁地方叛军的斗志。 | Guard Tower Flavor Text
+警察局                  | Police Station
+警用飞车                 | Police Blimp
+警车                   | Police Car
+让总统阁下访问金矿            | Visit the Gold Mine with El Presidente
+让黑客夺宝著名世界地标。         | Cyber Operation Center Heist_Description
+许多巧克力                | have 3 chocolate factories (weapon)
+设立无人机航线。             | Set up drone routes.
+访问{MineType}矿井       | El Presidente visited {MineType} mine
+访问金矿                 | Visit Gold Mine
+该建筑的产能受效率影响。         | Cigar Factory Efficiency Description
+该建筑的产能受效率影响。         | Furniture Factory Efficiency Description
+该建筑的产能受效率影响。         | Vehicle Factory Efficiency Description
+该建筑的产能受效率影响。         | Weapons Factory Efficiency Description
+该建筑的产能受效率影响。         | Chocolate Factory Efficiency Description
+负责任地开采               | Mine responsibly
+资本主义者国防部部长           | Capitalist Minister of Defense
+起义的攻击目标将变为冬宫而不是总统阁下的皇宫。全面提升游客评分。为来访市民和游客提供娱乐。本建筑对访客富有度没有要求。 | Winter Palace Introduction
+过时的士兵                | An Old Fashioned Soldier
+运营香脆培根               | Operation Crispy Bacon
+这不是个间谍学院，如果是的话你已经死了。请不要盯着那些正在为了准备抢劫而实验特殊装备的特工们。 | Spy Academy Flavor Text
+这个高科技防御总部有着数百个屏幕，上面列着谁也看不懂的数据供您的将军们参谋。只有您知道，屏幕上显示的是您在这场战争中赚了多少钱。哦对，防御总部还能帮您打赢战争。 | Defense HQ Flavor Text
+这是整个海岛最为奢侈豪华的建筑，卧室每周一换，全年无休（佩努提莫睡的是狗窝）。以及超大型露台，可供演讲和享受鼓掌。 | Palace FLAVOR
+这活我干的来。              | Work_Miner
+这跟书里说的不一样！           | Work_Chocolate_Factory
+连接矿井                 | Connect Mine
+选择培育一种作物，再加工成相应的商品，与当地作物质量无关。 | Hydroponic Plantation Introduction Text
+通过建设军事基地，指挥官们就可以获得完全不适应城市作战但是看上去很酷很炫的坦克。 | Army Base Flavor Text
+通过法院和监狱赚钱            | Earn Money with Prisons and Courthouses
+逮捕                   | Imprison
+那个词叫什么来着..."血汗工厂"？   | Work_Fashion_Factory
+那么我的工作是制毒，但我不算毒贩？    | Work_Pharms_Factory
+采集资料\(KB)。           | Mine data [KB].
+销售无人机之死！             | Death of a Salesdrone!
+镜头跟踪此部队。             | Keep the camera on this squad.
+间谍学院                 | Spy Academy
+间谍监视                 | Spying on the spies
+间谍车                  | Spy Car
+防御工事                 | Fortification
+防御总部                 | Defense HQ
+雪茄厂                  | Cigar Factory
+静态防御                 | Static Defense Workmode Name
+香蕉种植园                | Banana plantation
+高级无人机动力学！            | Advanced Drone Dynamics!
+魔岛迷云                 | More Prisons
