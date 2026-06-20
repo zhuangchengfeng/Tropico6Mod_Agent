@@ -1,1 +1,1 @@
-"MyMod\files\*" "../../../Tropico6/Content/"
+"E:\Tropico6Modding\MyMod\files\*" "../../../Tropico6/Content/"
