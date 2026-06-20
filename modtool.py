@@ -216,7 +216,9 @@ def cmd_set(args):
     for f in found:
         old = f.get("Value")
         # 类型推断
-        if isinstance(old, float) or "." in str(new_val):
+        if isinstance(old, bool):
+            new_val_typed = new_val.lower() in ("true", "1", "yes")
+        elif "." in str(new_val):
             new_val_typed = float(new_val)
         elif isinstance(old, int):
             new_val_typed = int(new_val)
