@@ -4,3 +4,7 @@ MyMod/
 .idea/
 *.pyc
 __pycache__/
+_*.py
+_response.txt
+rf.txt
+responsefile.txt
