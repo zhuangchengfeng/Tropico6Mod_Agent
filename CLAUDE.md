@@ -29,18 +29,20 @@ echo '"E:\Tropico6Modding\MyMod\files\*" "../../../Tropico6/Content/"' > _path.t
 ## 工作流
 
 ```
-_game_extract/源文件 → tojson → MyMod/json/ → Edit值 → fromjson → MyMod/files/ → UnrealPak打包 → MyMod/pak/ → cp到游戏Paks/
+_game_extract/源文件 → (首次)tojson → MyMod/json/ → 编辑已有json → fromjson → MyMod/files/ → UnrealPak打包 → MyMod/pak/ → cp到游戏Paks/
 ```
+
+**重要规则：一个建筑只 tojson 一次。** 首次修改某建筑时从 `_game_extract` 转 json，之后改同一建筑的其他属性，直接编辑已有的 json 文件，**不要重新 tojson**，否则会覆盖之前的改动。
 
 每一步：
 
 1. **查对照表**：`建筑中英对照表.txt` 找中文名→目录名
-2. **cp源文件**：从 `_game_extract/Tropico6/Content/Blueprints/Buildings/<目录>/` 到 `MyMod/files/Blueprints/Buildings/<目录>/`
-3. **tojson**：`./UAssetGUI.exe tojson "源文件.uasset" "MyMod/json/XXX.json" 26`
-4. **Edit JSON**：`DamagePerWorker` 里的 `RangeMin`/`RangeMax` 是伤害范围
+2. **cp源文件**（仅首次）：从 `_game_extract/Tropico6/Content/Blueprints/Buildings/<目录>/` 到 `MyMod/files/Blueprints/Buildings/<目录>/`
+3. **tojson**（仅首次）：`./UAssetGUI.exe tojson "源文件.uasset" "MyMod/json/XXX.json" 26`
+4. **编辑已有 JSON**：直接修改 `MyMod/json/XXX.json` 的值，不要重新 tojson
 5. **fromjson**：`./UAssetGUI.exe fromjson "MyMod/json/XXX.json" "MyMod/files/.../XXX.uasset"`
 6. **打包**：见上方绝对路径铁律
-7. **部署**：`cp MyMod/pak/z_MyMod.pak "游戏Paks目录/z_MyMod.pak"`，同时删旧的 `z_Watchtower.pak`
+7. **部署**：`cp MyMod/pak/z_MyMod.pak "游戏Paks目录/z_MyMod.pak"`
 
 ## 避坑
 
