@@ -192,7 +192,7 @@
 | 属性 | 原值 | MOD值 | 说明 |
 |------|------|------|------|
 | ElectricityCellRadius | 30 | 30 | 电网单元半径 |
-| BaseElectricityGenerationPerWorker | ~~100~~ | **200** | 每工人发电量(2x) |
+| BaseElectricityGenerationPerWorker | ~~60~~ | **200** | 每工人发电量(2x) |
 | JobCapacity | ~~6~~ | **18** | 岗位数(3x) |
 | MonthlyWageBase | 20 | 20 | 月薪 |
 | JobQualityBase | 45 | 45 | 岗位质量 |
@@ -206,13 +206,15 @@
 | 属性 | 原值 | MOD值 | 说明 |
 |------|------|------|------|
 | ElectricityCellRadius | 45 | 45 | 电网单元半径 |
-| BaseElectricityGenerationPerWorker | ~~500~~ | **1000** | 每工人发电量(2x) |
-| JobCapacity | ~~4~~ | **12** | 岗位数(3x) |
+| BaseElectricityGenerationPerWorker | ~~500~~ | **1000** | 每工人发电量(2x) ⚠ |
+| JobCapacity | ~~4~~ | **12** | 岗位数(3x) ⚠ |
 | MonthlyWageBase | 45 | 45 | 月薪 |
 | JobQualityBase | 65 | 65 | 岗位质量 |
 | WorkDuration | 80 | 80 | 工作时长 |
 | UpkeepBase | 360 | 360 | 维护费 |
 | StructurePoints | 8000 | 8000 | 建筑血量 |
+
+> ⚠ 核电站为电站子类，fromjson 无法写入子类 CDO 覆盖属性，需 hex 直接改 .uexp（待修复）
 
 ---
 
@@ -469,3 +471,19 @@
 | 泰姬陵 TajMahal | ~~Disabled~~ | **OneOrMore** | 二战 |
 | 艾菲尔铁塔 EiffelTower | ~~Disabled~~ | **OneOrMore** | 二战 |
 | 冬宫 WinterPalace | ~~Disabled~~ | **OneOrMore** | 现代 |
+
+---
+
+## 道路控制器 RoadController
+| 属性 | 原值 | MOD值 | 说明 |
+|------|------|------|------|
+| MaxBridgeLength | 45000 | **999999** | 桥梁最大长度，可跨岛 |
+| MaxLength | 50000 | 50000 | 道路最大长度 |
+| bCheckMaxLength | False | False | 最大长度检查(未启用) |
+| MaxSplineSegmentLength | 1500 | 1500 | 最大样条段长度 |
+| RoadSegmentWidth | 550 | 550 | 道路宽度 |
+| CollisionWidth | 150 | 150 | 碰撞宽度 |
+| DrivewayCollisionWidth | 250 | 250 | 车道碰撞宽度 |
+| BaseBridgeCostPerMeter | 5 | 5 | 桥梁每米费用 |
+| RiverBridgeZOffset | 50 | 50 | 河桥Z偏移 |
+| BridgeZOffset | 1000 | 1000 | 桥梁Z偏移 |
