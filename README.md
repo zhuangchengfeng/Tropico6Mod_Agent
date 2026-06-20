@@ -150,15 +150,20 @@ UAssetGUI.exe fromjson "MyMod/json/<主蓝图>.json" "MyMod/files/Blueprints/Bui
 
 ### 步骤 6：打包
 
-⚠️ **打包前必须先重写 `_path.txt`** — UnrealPak 要求绝对路径，相对路径在别的电脑或工作目录变化时会失败。
+⚠️ **UnrealPak 的所有路径参数（包括 `-Create=`）都必须用绝对路径，相对路径会报 `Failed to load`。**
 
 ```bash
-# 每次打包前，用当前项目根目录的绝对路径重写 _path.txt
-# 示例（Agent 应自动替换为实际项目路径）：
-# echo '"E:\Tropico6Modding\MyMod\files\*" "../../../Tropico6/Content/"' > _path.txt
+# 1. 先写入 _path.txt（内容也用绝对路径）
+echo '"<项目绝对路径>\MyMod\files\*" "../../../Tropico6/Content/"' > _path.txt
 
-# 然后打包
-UnrealPakTool/UnrealPak[v5_UE4.20].exe "MyMod/pak/z_MyMod.pak" -Create="_path.txt"
+# 2. 打包 — 注意 -Create= 后面也是绝对路径
+UnrealPakTool/UnrealPak[v5_UE4.20].exe "<项目绝对路径>\MyMod\pak\z_MyMod.pak" -Create="<项目绝对路径>\_path.txt"
+```
+
+示例（假设项目在 `E:\Tropico6Modding`）：
+```bash
+echo '"E:\Tropico6Modding\MyMod\files\*" "../../../Tropico6/Content/"' > _path.txt
+./UnrealPakTool/UnrealPak[v5_UE4.20].exe "E:\Tropico6Modding\MyMod\pak\z_MyMod.pak" -Create="E:\Tropico6Modding\_path.txt"
 ```
 
 ### 步骤 7：部署
