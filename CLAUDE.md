@@ -23,8 +23,42 @@ echo '"E:\Tropico6Modding\MyMod\files\*" "../../../Tropico6/Content/"' > _path.t
 | `UnrealPakTool/UnrealPak[v5_UE4.20].exe` | **打包** mod pak | 4.20 |
 | `UAssetGUI.exe` | uasset ↔ json | — |
 | `UnrealLocres.exe` | locres → csv | — |
+| `modtool.py` | **模组管理 CLI**（主力） | — |
 
 提取用 4.25.3，打包用 4.20。反过来提取会报 magic number 错，打包会报 DDC 错。
+
+## modtool.py 使用
+
+**日常操作一律用 `modtool.py`，不要再单独调 UAssetGUI / UnrealPak。**
+
+| 命令 | 用途 |
+|------|------|
+| `python modtool.py find <关键词>` | 搜索建筑中文名→英文目录 |
+| `python modtool.py convert <建筑名>` | 一键查表+cp+tojson（仅首次用） |
+| `python modtool.py info [json名]` | 查看属性值，无参数则列出所有 JSON |
+| `python modtool.py set <json> <属性> [值]` | 读取/修改属性 |
+| `python modtool.py stock` | 批量改所有生产建筑库存30000/生产10x |
+| `python modtool.py housing` | 批量翻倍住宅容量 |
+| `python modtool.py fromjson-all` | 所有 JSON → uasset+uexp |
+| `python modtool.py package` | 打包（自动检查是否需要 fromjson） |
+| `python modtool.py deploy` | 复制 pak 到游戏目录 |
+| `python modtool.py full` | fromjson-all + package + deploy 一键 |
+| `python modtool.py status` | 查看当前修改状态 |
+
+**典型会话示例：**
+
+```bash
+# 用户说：改警卫塔伤害到1000
+python modtool.py find 警卫塔                    # → ColonialGuardTower
+python modtool.py convert ColonialGuardTower     # 仅首次
+python modtool.py set BP_ColonialGuardTower RangeMin 1000
+python modtool.py set BP_ColonialGuardTower RangeMax 1000
+python modtool.py full                           # 打包部署
+
+# 用户说：把库存全改到50000，生产率20x
+python modtool.py stock --capacity=50000 --rate=20
+python modtool.py full
+```
 
 ## 工作流
 
@@ -36,13 +70,14 @@ _game_extract/源文件 → (首次)tojson → MyMod/json/ → 编辑已有json 
 
 每一步：
 
-1. **查对照表**：`建筑中英对照表.txt` 找中文名→目录名
-2. **cp源文件**（仅首次）：从 `_game_extract/Tropico6/Content/Blueprints/Buildings/<目录>/` 到 `MyMod/files/Blueprints/Buildings/<目录>/`
-3. **tojson**（仅首次）：`./UAssetGUI.exe tojson "源文件.uasset" "MyMod/json/XXX.json" 26`
-4. **编辑已有 JSON**：直接修改 `MyMod/json/XXX.json` 的值，不要重新 tojson
-5. **fromjson**：`./UAssetGUI.exe fromjson "MyMod/json/XXX.json" "MyMod/files/.../XXX.uasset"`
-6. **打包**：见上方绝对路径铁律
-7. **部署**：`cp MyMod/pak/z_MyMod.pak "游戏Paks目录/z_MyMod.pak"`
+1. **查对照表**：`python modtool.py find <中文名>`
+2. **convert**（仅首次）：`python modtool.py convert <建筑名>` 一键 cp+tojson
+3. **编辑已有 JSON**：`python modtool.py set <json> <属性> <值>`
+4. **打包部署**：`python modtool.py full` 一键 fromjson+打包+部署
+
+**例外场景**（modtool 不覆盖的）：
+- 直接编辑 JSON 修改复杂嵌套结构时的手动操作
+- 提取游戏 pak 用 `UnrealPakTool/UnrealPak.exe`
 
 ## 避坑
 
