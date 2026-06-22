@@ -4,7 +4,7 @@ Tropico 6 Modding CLI — 一站式模组管理工具
 用法: python modtool.py <命令> [参数...]
 """
 
-import json, os, sys, subprocess, shutil, re, glob
+import json, os, sys, subprocess, shutil, re, glob, struct
 
 # ============================================================
 # 路径配置
@@ -477,6 +477,11 @@ def cmd_package(args):
     if need_fromjson:
         print("  检测到 JSON 比 uasset 新，先运行 fromjson-all...")
         cmd_fromjson_all([])
+        # fromjson 无法写入 FloatProperty → 执行 hex-patch
+        apply_hex_patches()
+    else:
+        # 即使不需要 fromjson，也确保 hex-patch 已应用
+        apply_hex_patches()
 
     # 写 _path.txt
     content = f'"{ROOT}\\MyMod\\files\\*" "../../../Tropico6/Content/"'
@@ -521,9 +526,65 @@ def cmd_status(args):
         dt = datetime.fromtimestamp(mtime).strftime("%m-%d %H:%M")
         print(f"    {dt}  {jname}")
 
+# ============================================================
+# Hex Patches — fromjson 无法写入 FloatProperty/ByteProperty
+# 在 fromjson-all 之后自动执行
+# ============================================================
+HEX_PATCHES = [
+    # LooseLoadLimit: MaximumLoss 10→0
+    ("Blueprints/Buildings/Colonial/TeamstersOffice/BP_T6WorkmodeLooseLoadLimit.uexp", 10, 0, "int", "MaxLoss 10→0"),
+    # LooseLoadLimit: TeamsterCapacityModifierPercent 1.5→10.0
+    ("Blueprints/Buildings/Colonial/TeamstersOffice/BP_T6WorkmodeLooseLoadLimit.uexp", 1.5, 10.0, "float", "CapMod 1.5→10.0"),
+    # Teamster: MovementSpeed 1200→6000 + RotationSpeed 180→900
+    ("Blueprints/AgentMovementData/BP_TeamsterMovementData.uexp", 1200.0, 6000.0, "float", "Speed 1200→6000"),
+    ("Blueprints/AgentMovementData/BP_TeamsterMovementData.uexp", 180.0, 900.0, "float", "Rotation 180→900"),
+    ("Blueprints/AgentMovementData/BP_EmptyTeamsterMovementData.uexp", 1200.0, 6000.0, "float", "Speed 1200→6000"),
+    ("Blueprints/AgentMovementData/BP_EmptyTeamsterMovementData.uexp", 180.0, 900.0, "float", "Rotation 180→900"),
+]
+
+def apply_hex_patches():
+    """在 MyMod/files/ 中搜索 uexp 并应用 hex-patches"""
+def apply_hex_patches():
+    """在 MyMod/files/ 中搜索 uexp 并应用 hex-patches，如目标文件不存在则从源拷贝"""
+    files_root = os.path.join(ROOT, "MyMod/files")
+    src_root   = os.path.join(ROOT, "_game_extract/Tropico6/Content")
+    patched = 0
+
+    for rel_path, old_val, new_val, val_type, desc in HEX_PATCHES:
+        dst = os.path.join(files_root, rel_path)
+        src = os.path.join(src_root, rel_path)
+
+        # 目标不存在 → 从源拷贝
+        if not os.path.exists(dst):
+            if not os.path.exists(src):
+                continue
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy2(src.replace(".uexp", ".uasset"), dst.replace(".uexp", ".uasset"))
+            shutil.copy2(src, dst)
+
+        data = bytearray(open(dst, "rb").read())
+        old_bytes = struct.pack("<i", old_val) if val_type == "int" else struct.pack("<f", old_val)
+        new_bytes = struct.pack("<i", new_val) if val_type == "int" else struct.pack("<f", new_val)
+
+        pos = data.find(old_bytes, 0x50 if "LooseLoad" in rel_path else 0)
+        if pos >= 0:
+            data[pos:pos+4] = new_bytes
+            open(dst, "wb").write(data)
+            patched += 1
+
+    if patched:
+        print(f"  Hex patch: {patched}/{len(HEX_PATCHES)} 处已修补")
+
+def cmd_hexpatch(args):
+    """手动执行 hex-patches"""
+    apply_hex_patches()
+    print("  完成")
+
 def cmd_full(args):
-    """一键 fromjson-all + package + deploy"""
+    """一键 fromjson-all + hexpatch + package + deploy"""
     cmd_fromjson_all([])
+    print()
+    apply_hex_patches()
     print()
     cmd_package([])
     print()
@@ -544,6 +605,7 @@ COMMANDS = {
     "stock":         cmd_stock,
     "housing":       cmd_housing,
     "fromjson-all":  cmd_fromjson_all,
+    "hexpatch":      cmd_hexpatch,
     "package":       cmd_package,
     "deploy":        cmd_deploy,
     "status":        cmd_status,
@@ -564,6 +626,7 @@ USAGE = """modtool.py — Tropico6 模组工具
   stock   [--capacity=N] [--rate=N]  批量改库存/生产率
   housing [--multiplier=N]           批量翻倍住宅容量
   fromjson-all           全部 json→uasset
+  hexpatch               修复 fromjson 遗漏的 FloatProperty
   package                打包
   deploy                 部署到游戏
   full                   fromjson-all + package + deploy

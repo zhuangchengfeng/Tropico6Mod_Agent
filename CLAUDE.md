@@ -40,7 +40,8 @@ echo '"E:\Tropico6Modding\MyMod\files\*" "../../../Tropico6/Content/"' > _path.t
 | `python modtool.py stock` | 批量改所有生产建筑库存30000/生产10x |
 | `python modtool.py housing` | 批量翻倍住宅容量 |
 | `python modtool.py fromjson-all` | 所有 JSON → uasset+uexp |
-| `python modtool.py package` | 打包（自动检查是否需要 fromjson） |
+| `python modtool.py hexpatch` | 修复 fromjson 遗漏的 FloatProperty/ByteProperty |
+| `python modtool.py package` | 打包（自动 fromjson-all + hexpatch） |
 | `python modtool.py deploy` | 复制 pak 到游戏目录 |
 | `python modtool.py full` | fromjson-all + package + deploy 一键 |
 | `python modtool.py status` | 查看当前修改状态 |
@@ -85,3 +86,5 @@ _game_extract/源文件 → (首次)tojson → MyMod/json/ → 编辑已有json 
 - 提取游戏 pak 加 `-Filter="*关键词*"` 能秒出结果，别全量解包单文件
 - 属性里 `DamagePerWorker` 是 `T6Range` 结构体，值在嵌套的 `RangeMin`/`RangeMax` 里，别改外层
 - `JobCapacity` 类型是 `Byte`，值超过 255 会截断
+- **fromjson bug**: FloatProperty/ByteProperty 写入 uexp 不生效。`modtool.py full` / `package` 会自动执行 hexpatch 修正。如需手动：`python modtool.py hexpatch`
+- **AgentMovementData** 等不在 `Blueprints/Buildings/` 下的文件，`fromjson-all` 不会处理。`hexpatch` 命令会自动从源拷贝 + 打补丁
