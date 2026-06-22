@@ -19,6 +19,8 @@ GAME_PAKS  = r"C:/TP6/Tropico 6/Tropico6/Content/Paks"
 MAP_FILE   = os.path.join(ROOT, "建筑中英对照表.txt")
 UASSET_GUI = os.path.join(ROOT, "UAssetGUI.exe")
 UNREAL_PAK = os.path.join(ROOT, "UnrealPakTool/UnrealPak[v5_UE4.20].exe")
+FINISH_PAKS = os.path.join(ROOT, "finish_paks")
+MY_MODS_DIR = os.path.join(ROOT, "_my_mods")
 
 # ============================================================
 # 工具函数
@@ -78,6 +80,25 @@ def run(cmd, silent=False):
         if r.stderr.strip():
             print(r.stderr.strip(), file=sys.stderr)
     return r.returncode, r.stdout, r.stderr
+
+def get_custom_mods():
+    """扫描 _my_mods/ 获取自定义 mod 列表，返回 [(name, folder_path, path_file)]"""
+    mods = []
+    if not os.path.exists(MY_MODS_DIR):
+        return mods
+    for name in sorted(os.listdir(MY_MODS_DIR)):
+        path = os.path.join(MY_MODS_DIR, name)
+        if name == "_path" or name.startswith("."):
+            continue
+        if os.path.isdir(path):
+            pfile = os.path.join(MY_MODS_DIR, "_path", f"_path_{name}.txt")
+            if os.path.exists(pfile):
+                mods.append((name, path, pfile))
+    return mods
+
+def get_pak_name(mod_name):
+    """自定义 mod 文件夹名 → pak 文件名"""
+    return f"z_{mod_name}.pak"
 
 # ============================================================
 # 搜索映射
@@ -459,8 +480,12 @@ def cmd_fromjson_all(args):
     print(f"  OK {ok}/{len(json_names())}")
 
 def cmd_package(args):
-    """打包 mod"""
-    # 先运行 fromjson-all 确保所有修改已转换
+    """打包所有 mod 到 finish_paks/"""
+    os.makedirs(FINISH_PAKS, exist_ok=True)
+    total = 0
+
+    # 1. 打包 MyMod（主 mod）
+    print("--- z_MyMod (主 mod) ---")
     need_fromjson = False
     for jname in json_names():
         ua = find_uasset(jname)
@@ -477,10 +502,8 @@ def cmd_package(args):
     if need_fromjson:
         print("  检测到 JSON 比 uasset 新，先运行 fromjson-all...")
         cmd_fromjson_all([])
-        # fromjson 无法写入 FloatProperty → 执行 hex-patch
         apply_hex_patches()
     else:
-        # 即使不需要 fromjson，也确保 hex-patch 已应用
         apply_hex_patches()
 
     # 写 _path.txt
@@ -488,21 +511,48 @@ def cmd_package(args):
     with open(PATH_TXT, "w") as f:
         f.write(content)
 
-    # 打包
-    rc, out, err = run([UNREAL_PAK, PAK_PATH, f"-Create={PATH_TXT}"])
+    mymod_pak = os.path.join(FINISH_PAKS, "z_MyMod.pak")
+    rc, out, err = run([UNREAL_PAK, mymod_pak, f"-Create={PATH_TXT}", "-compress"])
     if rc == 0:
-        size = os.path.getsize(PAK_PATH)
+        size = os.path.getsize(mymod_pak)
         nfiles = int(re.search(r"Added (\d+) files", out).group(1)) if "Added" in out else "?"
-        print(f"  打包完成: {nfiles} 文件, {size/1024/1024:.2f}MB")
+        print(f"  OK: {nfiles} 文件, {size/1024:.0f}KB\n")
+        total += 1
+    else:
+        print(f"  FAIL\n")
+
+    # 2. 打包自定义 mod（_my_mods/）
+    custom_mods = get_custom_mods()
+    for mod_name, mod_path, path_file in custom_mods:
+        print(f"--- z_{mod_name} ---")
+        pak_path = os.path.join(FINISH_PAKS, f"z_{mod_name}.pak")
+        rc, out, err = run([UNREAL_PAK, pak_path, f"-Create={path_file}", "-compress"])
+        if rc == 0:
+            size = os.path.getsize(pak_path)
+            nfiles = int(re.search(r"Added (\d+) files", out).group(1)) if "Added" in out else "?"
+            print(f"  OK: {nfiles} 文件, {size/1024:.0f}KB\n")
+            total += 1
+        else:
+            print(f"  FAIL\n")
+
+    print(f"全部完成: {total} 个 pak → {FINISH_PAKS}")
 
 def cmd_deploy(args):
-    """部署到游戏目录"""
-    if not os.path.exists(PAK_PATH):
-        print("  pak 不存在，先运行 package")
+    """部署所有 pak 到游戏目录"""
+    if not os.path.exists(FINISH_PAKS):
+        print("  finish_paks/ 不存在，先运行 package")
         return
-    dst = os.path.join(GAME_PAKS, "z_MyMod.pak")
-    shutil.copy2(PAK_PATH, dst)
-    print(f"  已部署 → {dst}")
+    paks = [f for f in os.listdir(FINISH_PAKS) if f.endswith(".pak")]
+    if not paks:
+        print("  finish_paks/ 中没有 pak 文件")
+        return
+    for f in sorted(paks):
+        src = os.path.join(FINISH_PAKS, f)
+        dst = os.path.join(GAME_PAKS, f)
+        shutil.copy2(src, dst)
+        size = os.path.getsize(src)
+        print(f"  {f} → {dst}  ({size/1024:.0f}KB)")
+    print(f"  已部署 {len(paks)} 个 pak")
 
 def cmd_status(args):
     """展示当前 mod 状态"""
@@ -513,6 +563,23 @@ def cmd_status(args):
     print(f"  JSON 文件:  {n_json}")
     print(f"  uasset 文件: {n_uasset}")
     print(f"  pak 大小:   {pak_size/1024/1024:.2f}MB")
+
+    # 自定义 mod
+    custom = get_custom_mods()
+    if custom:
+        print(f"\n  自定义 mod ({len(custom)}):")
+        for name, path, _ in custom:
+            nf = sum(1 for _ in os.walk(path) for f in _[2])
+            print(f"    {name}: {nf} 文件")
+
+    # finish_paks
+    if os.path.exists(FINISH_PAKS):
+        paks = [f for f in os.listdir(FINISH_PAKS) if f.endswith(".pak")]
+        if paks:
+            print(f"\n  finish_paks ({len(paks)}):")
+            for f in sorted(paks):
+                fp = os.path.join(FINISH_PAKS, f)
+                print(f"    {f} ({os.path.getsize(fp)/1024:.0f}KB)")
 
     # 列出最近修改的 JSON
     print(f"\n  修改历史（最新 10）:")
@@ -581,7 +648,7 @@ def cmd_hexpatch(args):
     print("  完成")
 
 def cmd_full(args):
-    """一键 fromjson-all + hexpatch + package + deploy"""
+    """一键 fromjson-all + package + deploy"""
     cmd_fromjson_all([])
     print()
     apply_hex_patches()

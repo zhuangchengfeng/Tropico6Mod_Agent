@@ -41,8 +41,8 @@ echo '"E:\Tropico6Modding\MyMod\files\*" "../../../Tropico6/Content/"' > _path.t
 | `python modtool.py housing` | 批量翻倍住宅容量 |
 | `python modtool.py fromjson-all` | 所有 JSON → uasset+uexp |
 | `python modtool.py hexpatch` | 修复 fromjson 遗漏的 FloatProperty/ByteProperty |
-| `python modtool.py package` | 打包（自动 fromjson-all + hexpatch） |
-| `python modtool.py deploy` | 复制 pak 到游戏目录 |
+| `python modtool.py package` | 打包所有 mod 到 finish_paks/（自动 fromjson-all + hexpatch + compress） |
+| `python modtool.py deploy` | 复制 finish_paks/ 下所有 pak 到游戏目录 |
 | `python modtool.py full` | fromjson-all + package + deploy 一键 |
 | `python modtool.py status` | 查看当前修改状态 |
 
@@ -64,7 +64,7 @@ python modtool.py full
 ## 工作流
 
 ```
-_game_extract/源文件 → (首次)tojson → MyMod/json/ → 编辑已有json → fromjson → MyMod/files/ → UnrealPak打包 → MyMod/pak/ → cp到游戏Paks/
+_game_extract/源文件 → (首次)tojson → MyMod/json/ → 编辑已有json → fromjson → MyMod/files/ → 打包 → finish_paks/ → deploy → 游戏Paks/
 ```
 
 **重要规则：一个建筑只 tojson 一次。** 首次修改某建筑时从 `_game_extract` 转 json，之后改同一建筑的其他属性，直接编辑已有的 json 文件，**不要重新 tojson**，否则会覆盖之前的改动。
@@ -75,6 +75,28 @@ _game_extract/源文件 → (首次)tojson → MyMod/json/ → 编辑已有json 
 2. **convert**（仅首次）：`python modtool.py convert <建筑名>` 一键 cp+tojson
 3. **编辑已有 JSON**：`python modtool.py set <json> <属性> <值>`
 4. **打包部署**：`python modtool.py full` 一键 fromjson+打包+部署
+
+### 自定义独立 mod
+
+自己手动改 uasset 的独立 mod 放 `_my_mods/` 下，每个 mod 一个文件夹：
+
+```
+_my_mods/
+├── Highschool/             # 文件夹名 = mod 名
+│   ├── BP_Highschool.uasset
+│   └── ...
+├── NuclearPowerPlant/
+│   └── ...
+└── _path/
+    ├── _path_Highschool.txt       # 格式: "源文件夹\*" "挂载点/"
+    └── _path_NuclearPowerPlant.txt
+```
+
+`package` 和 `full` 会自动扫描 `_my_mods/` 下所有有对应 `_path` 配置的文件夹，与 MyMod 一起打包到 `finish_paks/`。
+
+新增自定义 mod：
+1. 在 `_my_mods/` 下新建文件夹，放入 uasset+uexp
+2. 在 `_my_mods/_path/` 下新建 `_path_<文件夹名>.txt`，指向该文件夹和游戏内挂载路径
 
 **例外场景**（modtool 不覆盖的）：
 - 直接编辑 JSON 修改复杂嵌套结构时的手动操作
