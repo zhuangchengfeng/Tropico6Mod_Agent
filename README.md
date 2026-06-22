@@ -1,184 +1,108 @@
 # Tropico 6 Modding 工具链
-# 请直接接入你的Agent,将此份文档给他即可，请在下方修改你的正确游戏目录路径
-## 前置准备  
-### Agent 读取所有md
 
-**请先填入你的游戏安装路径：**
+请直接接入你的 Agent，将本文件给他即可。使用前修改下方游戏目录路径。
 
-```
-游戏根目录: C:\TP6\Tropico 6
-游戏Paks目录: C:\TP6\Tropico 6\Tropico6\Content\Paks
-```
+## 前置准备
 
-## 工具说明
-
-| 工具 | 路径 | 用途 |
-|------|------|------|
-| `UnrealPak.exe` | `UnrealPakTool/UnrealPak.exe` | **从游戏提取** pak 文件（UE 4.25.3 版本，兼容游戏的自定义 pak 格式） |
-| `UnrealPak[v5_UE4.20].exe` | `UnrealPakTool/UnrealPak[v5_UE4.20].exe` | **打包** mod pak（UE 4.20 版本，与游戏引擎版本匹配） |
-| `UAssetGUI.exe` | `UAssetGUI.exe` | `.uasset/.uexp` ↔ `.json` 互转 |
-| `UnrealLocres.exe` | `UnrealLocres.exe` | `.locres` → `.csv` 导出游戏本地化文本 |
-
-## 第一次使用：初始化
-
-### 步骤 1：解包游戏主文件
-
-将 `<游戏Paks目录>/pakchunk0-WindowsNoEditor.pak` 全部解包到 `_game_extract/`：
-
-```bash
-UnrealPakTool/UnrealPak.exe "<游戏Paks目录>/pakchunk0-WindowsNoEditor.pak" -Extract "_game_extract"
-```
-
-约 19GB，只需执行一次。之后所有源文件从 `_game_extract/Tropico6/Content/` 获取。
-
-### 步骤 2：导出中文对照表
-
-```bash
-UnrealLocres.exe export "_game_extract/Tropico6/Content/Localization/Game/zh-Hans/Game.locres" -f csv -o "_zh_locres.csv"
-```
-
-### 步骤 3：生成建筑中英对照表
-
-运行以下 Python 脚本，生成 `建筑中英对照表.txt`：
-
-```python
-import csv, os
-
-zh = {}
-with open('_zh_locres.csv', 'r', encoding='utf-8-sig') as f:
-    reader = csv.reader(f)
-    next(reader)
-    for row in reader:
-        if len(row) >= 2 and row[1].strip():
-            zh[row[0]] = row[1]
-
-mapping = {}
-with open('_game_extract/Tropico6/Content/Localization/CSV/LocaSourceTable.csv', 'r', encoding='utf-8-sig') as f:
-    reader = csv.reader(f)
-    next(reader)
-    for row in reader:
-        if len(row) >= 2:
-            eng = row[1].strip()
-            cn = zh.get('/' + row[0].strip(), '')
-            if cn and 2 <= len(eng) <= 40:
-                mapping[eng] = cn
-
-dirs = []
-for root, subdirs, files in os.walk('_game_extract/Tropico6/Content/Blueprints/Buildings'):
-    for d in subdirs:
-        dirs.append(d)
-
-with open('建筑中英对照表.txt', 'w', encoding='utf-8') as out:
-    for d in sorted(set(dirs)):
-        cn = mapping.get(d, '')
-        if cn:
-            out.write(f'{cn}|{d}\n')
-```
-
-完成后删除临时的 `_zh_locres.csv`。
+游戏根目录: `C:\TP6\Tropico 6`
+游戏 Paks 目录: `C:\TP6\Tropico 6\Tropico6\Content\Paks`
 
 ## 目录结构
 
 ```
 E:\Tropico6Modding\
-├── README.md                     ← 本文件
+├── README.md
+├── CLAUDE.md                     ← Agent 必读（详细工作流）
+├── modtool.py                    ← 模组管理 CLI（主力工具）
 ├── _game_extract/                ← 游戏源文件（只读，永不修改）
-│   └── Tropico6/Content/
-│       ├── Blueprints/Buildings/ ← 所有建筑蓝图
-│       ├── Localization/         ← 本地化文本
-│       └── ...
+│   └── Tropico6/Content/Blueprints/Buildings/
 ├── MyMod/
-│   ├── json/                     ← 可编辑的 JSON 文件（改这里）
-│   ├── files/                    ← 修改后转换的 .uasset + .uexp
-│   │   └── Blueprints/Buildings/ ← 与游戏内路径对应
-│   └── pak/                      ← 打包输出
-├── _path.txt                     ← 打包路径配置
-├── UAssetGUI.exe
-├── UnrealLocres.exe
+│   ├── json/                     ← 可编辑的 JSON 文件
+│   ├── files/                    ← .uasset + .uexp（由 fromjson 生成）
+│   └── pak/z_MyMod.pak
+├── _my_mods/                     ← 自定义独立 mod（手动修改 uasset）
+│   ├── Highschool/
+│   ├── NuclearPowerPlant/
+│   └── _path/                    ← 每个 mod 的打包路径配置
+├── finish_paks/                  ← 打包输出目录（所有 pak 汇总）
+├── _path.txt                     ← MyMod 打包路径配置
+├── UAssetGUI.exe                 ← uasset ↔ json 互转
 ├── UnrealPakTool/
-│   ├── UnrealPak.exe             ← 提取用
-│   └── UnrealPak[v5_UE4.20].exe  ← 打包用
+│   ├── UnrealPak.exe             ← 提取游戏 pak（UE 4.25.3）
+│   └── UnrealPak[v5_UE4.20].exe  ← 打包 mod pak（UE 4.20）
 └── 建筑中英对照表.txt            ← 中文建筑名 → 英文目录名
 ```
 
-## 日常修改流程
+## 工具
 
-用户只需说出**中文建筑名 + 要改的属性 + 目标值**，Agent 按以下步骤全自动执行：
+| 工具 | 用途 |
+|------|------|
+| `modtool.py` | **模组管理 CLI**（日常主力） |
+| `UAssetGUI.exe` | uasset ↔ json 互转（modtool 自动调用） |
+| `UnrealPakTool/UnrealPak.exe` | 从游戏提取 pak（4.25.3） |
+| `UnrealPakTool/UnrealPak[v5_UE4.20].exe` | 打包 mod pak（4.20，modtool 自动调用） |
 
-### 步骤 1：查表定位
+## modtool.py 使用
 
-从 `建筑中英对照表.txt` 查找中文名对应的英文目录名。
+日常操作一律用 `modtool.py`，无需手动调用 UAssetGUI / UnrealPak。
 
-例如：「警卫塔」→ `ColonialGuardTower` → 目录 `Colonial/ColonialGuardTower/`
+| 命令 | 用途 |
+|------|------|
+| `python modtool.py find <关键词>` | 搜索建筑中文名 → 英文目录 |
+| `python modtool.py convert <建筑名>` | 一键查表 + cp + tojson（仅首次） |
+| `python modtool.py info [json名]` | 查看属性值，无参数则列出所有 JSON |
+| `python modtool.py set <json> <属性> [值]` | 读取/修改属性 |
+| `python modtool.py stock` | 批量改所有生产建筑库存 / 生产率 |
+| `python modtool.py housing` | 批量翻倍住宅容量 |
+| `python modtool.py package` | 打包所有 mod 到 `finish_paks/`（自动 compress） |
+| `python modtool.py deploy` | 复制 `finish_paks/` 下所有 pak 到游戏目录 |
+| `python modtool.py full` | fromjson-all + package + deploy 一键完成 |
+| `python modtool.py status` | 查看当前修改状态 |
 
-### 步骤 2：拷贝源文件
-
-```bash
-cp "_game_extract/Tropico6/Content/Blueprints/Buildings/<目录>/<主蓝图>.uasset" "MyMod/files/Blueprints/Buildings/<目录>/"
-cp "_game_extract/Tropico6/Content/Blueprints/Buildings/<目录>/<主蓝图>.uexp" "MyMod/files/Blueprints/Buildings/<目录>/"
-```
-
-### 步骤 3：转为 JSON
-
-```bash
-UAssetGUI.exe tojson "_game_extract/Tropico6/Content/Blueprints/Buildings/<目录>/<主蓝图>.uasset" "MyMod/json/<主蓝图>.json" 26
-```
-
-引擎版本参数 `26` = UE 4.26（游戏实际运行的引擎版本）。
-
-### 步骤 4：修改 JSON
-
-直接编辑 `MyMod/json/<主蓝图>.json` 中的 `Value` 字段。
-
-常见属性对照：
-- `StructurePoints` — 建筑血量
-- `JobCapacity` — 岗位数
-- `DamagePerWorker` → `RangeMin` / `RangeMax` — 伤害范围
-- `ShotsBeforeReload` — 换弹前射击次数
-- `AggroRange` — 警戒范围
-- `MonthlyWageBase` → `Value` — 月薪
-- `UpkeepBase` → `Value` — 维护费
-- `WorkDuration` — 工作时长
-- `JobQualityBase` — 岗位质量
-
-### 步骤 5：转回 uasset
+### 典型会话
 
 ```bash
-UAssetGUI.exe fromjson "MyMod/json/<主蓝图>.json" "MyMod/files/Blueprints/Buildings/<目录>/<主蓝图>.uasset"
+# 改警卫塔伤害到 1000
+python modtool.py find 警卫塔
+python modtool.py convert ColonialGuardTower   # 仅首次
+python modtool.py set BP_ColonialGuardTower RangeMin 1000
+python modtool.py set BP_ColonialGuardTower RangeMax 1000
+python modtool.py full                         # 打包部署
+
+# 批量改库存
+python modtool.py stock --capacity=50000 --rate=20
+python modtool.py full
 ```
 
-这会同时生成/更新 `.uasset` 和 `.uexp`。
+## 工作流
 
-### 步骤 6：打包
-
-⚠️ **UnrealPak 的所有路径参数（包括 `-Create=`）都必须用绝对路径，相对路径会报 `Failed to load`。**
-
-```bash
-# 1. 先写入 _path.txt（内容也用绝对路径）
-echo '"<项目绝对路径>\MyMod\files\*" "../../../Tropico6/Content/"' > _path.txt
-
-# 2. 打包 — 注意 -Create= 后面也是绝对路径
-UnrealPakTool/UnrealPak[v5_UE4.20].exe "<项目绝对路径>\MyMod\pak\z_MyMod.pak" -Create="<项目绝对路径>\_path.txt"
+```
+首次修改某建筑 → convert（cp + tojson）→ 得到 JSON
+之后改同一建筑 → set（直接改已有 JSON）
+打包部署       → full（fromjson-all → hexpatch → package → deploy）
 ```
 
-示例（假设项目在 `E:\Tropico6Modding`）：
-```bash
-echo '"E:\Tropico6Modding\MyMod\files\*" "../../../Tropico6/Content/"' > _path.txt
-./UnrealPakTool/UnrealPak[v5_UE4.20].exe "E:\Tropico6Modding\MyMod\pak\z_MyMod.pak" -Create="E:\Tropico6Modding\_path.txt"
+所有 pak 输出到 `finish_paks/`，自动加 `-compress` 压缩，每个 pak 独立。
+
+## 自定义独立 Mod
+
+手动直接修改 uasset 的 mod 放 `_my_mods/` 下：
+
+```
+_my_mods/
+├── Highschool/                   # 修改后的 uasset + uexp
+├── NuclearPowerPlant/
+└── _path/
+    ├── _path_Highschool.txt      # 格式: "源文件夹\*" "挂载点/"
+    └── _path_NuclearPowerPlant.txt
 ```
 
-### 步骤 7：部署
-
-```bash
-cp "MyMod/pak/z_MyMod.pak" "<游戏Paks目录>/z_MyMod.pak"
-```
-
-同时清理旧版 pak（如 `z_Watchtower.pak`），避免冲突。
+`package` 会自动扫描 `_my_mods/` 下所有有对应 `_path` 配置的文件夹，与 MyMod 一起打包。
 
 ## 注意事项
 
-1. **永远不要修改 `_game_extract/` 中的文件**，那是只读的原始数据
-2. **提取用 `UnrealPak.exe`（4.25.3），打包用 `UnrealPak[v5_UE4.20].exe`（4.20）**，反过来会报错
-3. 修改的文件必须来自**本机游戏版本**，不能用网上下载的旧版文件，否则游戏会闪退
-4. `z_` 前缀的 pak 加载优先级最高（字母序最后）
-5. 如果新增修改的建筑，文件会自动归入同一个 `z_MyMod.pak`，无需单独打包
+1. **永远不要修改 `_game_extract/`**，那是只读的原始数据
+2. **一个建筑只 tojson 一次**，之后直接编辑已有 JSON
+3. 必须用本机游戏提取的 V21 文件，网上旧版会导致闪退
+4. 提取游戏 pak 加 `-Filter="*关键词*"` 秒出结果
+5. FloatProperty/ByteProperty 修改需要执行 `hexpatch`（`full` 命令自动执行）
