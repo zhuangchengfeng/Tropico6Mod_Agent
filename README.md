@@ -1,5 +1,7 @@
 # Tropico 6 Modding 工具链
 
+https://github.com/zhuangchengfeng/Tropico6Mod_Agent.git
+
 请直接接入你的 Agent，将本文件给他即可。使用前修改下方游戏目录路径。
 
 ## 前置准备
